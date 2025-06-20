@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profil - Tuana Sitesi</title>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      padding: 2rem;
+    }
+    .profil-kapsayici {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 2rem;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 1rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+<style>body { padding-bottom: 160px !important; }</style></head>
+<body>
+<div id="header-footer"></div>
+<script>
+  fetch('header-footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-footer').innerHTML = data;
+    });
+</script>
+<div class="profil-kapsayici">
+<h1>👤 Profil Bilgilerim</h1>
+<label for="ad">Ad Soyad</label>
+<input id="ad" placeholder="Örnek: Ahmet Yılmaz" type="text"/>
+<label for="daire">Daire No</label>
+<input id="daire" placeholder="Örnek: A2-14" type="text"/>
+<label for="email">E-posta</label>
+<input id="email" placeholder="ahmet@example.com" type="email"/>
+<label for="telefon">Telefon</label>
+<input id="telefon" placeholder="05xx xxx xx xx" type="tel"/>
+<button onclick="kaydetProfil()">Bilgileri Kaydet</button>
+</div>
+<script>
+    function kaydetProfil() {
+      const profil = {
+        ad: document.getElementById("ad").value,
+        daire: document.getElementById("daire").value,
+        email: document.getElementById("email").value,
+        telefon: document.getElementById("telefon").value
+      };
+      localStorage.setItem("profil", JSON.stringify(profil));
+      alert("Profil bilgileri kaydedildi ✅");
+    }
+
+    // Sayfa açıldığında bilgileri getir
+    window.onload = () => {
+      const kayitli = JSON.parse(localStorage.getItem("profil"));
+      if (kayitli) {
+        document.getElementById("ad").value = kayitli.ad || "";
+        document.getElementById("daire").value = kayitli.daire || "";
+        document.getElementById("email").value = kayitli.email || "";
+        document.getElementById("telefon").value = kayitli.telefon || "";
+      }
+    };
+  </script>
+</body>
+</html>
